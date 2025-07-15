@@ -103,8 +103,3 @@ func main() {
 }
 ```
 
-## CLI Tool
-
-The CLI tool has not been updated and is not maintained in this repository
-To use it, you can do it from the original repository [https://codecov.io/gh/matn/go-nowpayments](https://codecov.io/gh/matn/go-nowpayments)
-
