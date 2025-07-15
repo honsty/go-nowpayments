@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/CIDgravity/go-nowpayments/config"
-	"github.com/CIDgravity/go-nowpayments/core"
-	"github.com/CIDgravity/go-nowpayments/payments"
+	"github.com/honsty/go-nowpayments/config"
+	"github.com/honsty/go-nowpayments/core"
+	"github.com/honsty/go-nowpayments/payments"
 	"github.com/rotisserie/eris"
 )
 

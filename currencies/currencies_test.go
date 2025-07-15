@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/CIDgravity/go-nowpayments/core"
-	"github.com/CIDgravity/go-nowpayments/mocks"
+	"github.com/honsty/go-nowpayments/core"
+	"github.com/honsty/go-nowpayments/mocks"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"

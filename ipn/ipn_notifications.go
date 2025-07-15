@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/CIDgravity/go-nowpayments/config"
+	"github.com/honsty/go-nowpayments/config"
 	"github.com/rotisserie/eris"
 )
 

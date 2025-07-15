@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/CIDgravity/go-nowpayments/core"
+	"github.com/honsty/go-nowpayments/core"
 )
 
 // ListOption are options applying to the list of subscriptions

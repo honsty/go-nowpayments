@@ -1,7 +1,7 @@
 package currencies
 
 import (
-	"github.com/CIDgravity/go-nowpayments/core"
+	"github.com/honsty/go-nowpayments/core"
 )
 
 // All returns a list of all supported cryptocurrencies

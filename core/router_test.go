@@ -8,8 +8,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/CIDgravity/go-nowpayments/config"
-	"github.com/CIDgravity/go-nowpayments/mocks"
+	"github.com/honsty/go-nowpayments/config"
+	"github.com/honsty/go-nowpayments/mocks"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
