@@ -1,6 +1,7 @@
 package payments
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"net/url"
@@ -45,10 +46,10 @@ func EstimatedPrice(amount float64, currencyFrom, currencyTo string) (*Estimate,
 
 // LatestEstimate holds info about the last price estimation
 type LatestEstimate struct {
-	PaymentID      string  `json:"id"`
-	TokenID        string  `json:"token_id"`
-	PayAmount      float64 `json:"pay_amount"`
-	ExpirationDate string  `json:"expiration_estimate_date"`
+	PaymentID      json.Number `json:"id"`
+	TokenID        string      `json:"token_id"`
+	PayAmount      float64     `json:"pay_amount"`
+	ExpirationDate string      `json:"expiration_estimate_date"`
 }
 
 // RefreshEstimatedPrice gets the current estimate on the payment and update the current estimate
