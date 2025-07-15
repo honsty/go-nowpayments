@@ -16,7 +16,7 @@ type BaseURL string
 
 const (
 	ProductionBaseURL BaseURL = "https://api.nowpayments.io/v1"
-	SandBoxBaseURL            = "https://api-sandbox.nowpayments.io/v1"
+	SandBoxBaseURL    BaseURL = "https://api-sandbox.nowpayments.io/v1"
 )
 
 // SendParams are parameters needed to build and send an HTTP request to the service

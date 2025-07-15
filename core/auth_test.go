@@ -3,7 +3,7 @@ package core
 import (
 	"encoding/json"
 	"errors"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"testing"
 
@@ -32,7 +32,7 @@ func TestAuthenticate(t *testing.T) {
 				assert.NotNil(req)
 				assert.Equal("/v1/auth", req.URL.Path, "bad endpoint")
 				// Check request body.
-				d, err := ioutil.ReadAll(req.Body)
+				d, err := io.ReadAll(req.Body)
 				require.NoError(err)
 				type auth struct {
 					Email    string
