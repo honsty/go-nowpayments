@@ -13,8 +13,10 @@ import (
 type InvoiceArgs struct {
 	PaymentAmount
 
-	CancelURL  string `json:"cancel_url,omitempty"`
-	SuccessURL string `json:"success_url,omitempty"`
+	CancelURL     string `json:"cancel_url,omitempty"`
+	SuccessURL    string `json:"success_url,omitempty"`
+	FeePaidByUser bool   `json:"is_fee_paid_by_user,omitempty"`
+	FixedRate     bool   `json:"fixed_rate,omitempty"`
 }
 
 // Invoice describes an invoice. InvoiceURL is the URL to follow to make the payment.
