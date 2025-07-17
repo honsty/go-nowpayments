@@ -3,7 +3,6 @@ package ipn
 import (
 	"crypto/hmac"
 	"crypto/sha512"
-	"encoding/json"
 	"fmt"
 
 	"github.com/honsty/go-nowpayments/config"
@@ -44,17 +43,32 @@ type IPNPaymentStatus struct {
 	PurchaseID         string         `json:"purchase_id"`
 }
 
-func VerifyRequestSignature(expectedSignature string, ipnNotificationBody IPNPaymentStatus) error {
-	responseBodyAsBytes, err := json.Marshal(ipnNotificationBody)
+// func VerifyRequestSignature(expectedSignature string, ipnNotificationBody IPNPaymentStatus) error {
+// 	responseBodyAsBytes, err := json.Marshal(ipnNotificationBody)
 
-	if err != nil {
-		return err
-	}
+// 	if err != nil {
+// 		return err
+// 	}
 
+// 	// Create hmac sha512 using IPNSecretKey from config and response body
+// 	// the sort of keys in struct can be important, sometimes the signatures will differ if order differ
+// 	digest := hmac.New(sha512.New, []byte(config.IPNSecretKey()))
+// 	digest.Write(responseBodyAsBytes)
+// 	generatedSignature := digest.Sum(nil)
+
+// 	// Compare generated signature to expectedSignature
+// 	if fmt.Sprintf("%x", generatedSignature) == expectedSignature {
+// 		return nil
+// 	} else {
+// 		return eris.Wrap(fmt.Errorf("HMAC signature does not match"), "IPN signature verification")
+// 	}
+// }
+
+func VerifyRequestSignature(expectedSignature string, ipnNotificationBody []byte) error {
 	// Create hmac sha512 using IPNSecretKey from config and response body
 	// the sort of keys in struct can be important, sometimes the signatures will differ if order differ
 	digest := hmac.New(sha512.New, []byte(config.IPNSecretKey()))
-	digest.Write(responseBodyAsBytes)
+	digest.Write(ipnNotificationBody)
 	generatedSignature := digest.Sum(nil)
 
 	// Compare generated signature to expectedSignature
