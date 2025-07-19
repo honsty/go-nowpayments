@@ -1,8 +1,6 @@
 package config
 
 import (
-	"io"
-	"strings"
 	"testing"
 )
 
@@ -35,34 +33,6 @@ func TestLoad(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if err := Load(tt.r); (err != nil) != tt.wantErr {
-				t.Errorf("Load() error = %v, wantErr %v", err, tt.wantErr)
-			}
-		})
-	}
-}
-
-func TestLoadFromFile(t *testing.T) {
-	emptyAPIKeyCfg := `{"server":"http://some.tld","login":"mylogin","password":"mypass","ipnSecretKey":"key"}`
-	emptyLoginCfg := `{"server":"http://some.tld","apiKey":"key","password":"mypass","ipnSecretKey":"key"}`
-	emptyPasswordCfg := `{"server":"http://some.tld","login":"mylogin","apiKey":"key","ipnSecretKey":"key"}`
-	emptyServerCfg := `{"apiKey":"key","login":"mylogin","password":"mypass","ipnSecretKey":"key"}`
-	validCfg := `{"server":"http://some.tld","apiKey":"key","login":"mylogin","password":"mypass","ipnSecretKey":"key"}`
-	tests := []struct {
-		name    string
-		r       io.Reader
-		wantErr bool
-	}{
-		{"nil reader", nil, true},
-		{"bad config", strings.NewReader("nojson"), true},
-		{"valid config", strings.NewReader(validCfg), false},
-		{"empty API key", strings.NewReader(emptyAPIKeyCfg), true},
-		{"empty login", strings.NewReader(emptyLoginCfg), true},
-		{"empty password", strings.NewReader(emptyPasswordCfg), true},
-		{"empty server", strings.NewReader(emptyServerCfg), true},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if err := LoadFromFile(tt.r); (err != nil) != tt.wantErr {
 				t.Errorf("Load() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})

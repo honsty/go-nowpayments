@@ -56,23 +56,6 @@ func Load(c *Credentials) error {
 	return nil
 }
 
-func LoadAccount(login, password string) error {
-	if conf.Login == "" {
-		return configErr(errors.New("login info missing"))
-	}
-
-	if conf.Password == "" {
-		return configErr(errors.New("password info missing"))
-	}
-
-	if conf == nil {
-		conf = new(Credentials)
-	}
-	conf.Login = login
-	conf.Password = password
-	return nil
-}
-
 // Login returns the email address to use with the API.
 func Login() string {
 	return conf.Login
