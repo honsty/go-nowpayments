@@ -1,9 +1,7 @@
 package config
 
 import (
-	"encoding/json"
 	"errors"
-	"io"
 	"net/url"
 
 	"github.com/rotisserie/eris"
@@ -17,7 +15,7 @@ type Credentials struct {
 	Server       string `json:"server"`
 }
 
-var conf Credentials
+var conf *Credentials
 
 func configErr(err error) error {
 	return eris.Wrap(err, "config")
@@ -28,8 +26,15 @@ func Load(c *Credentials) error {
 	if c == nil {
 		return configErr(errors.New("nil reader"))
 	}
-
-	conf = *c
+	if conf == nil {
+		conf = c
+	} else {
+		conf.APIKey = c.APIKey
+		conf.Server = c.Server
+		conf.IPNSecretKey = c.IPNSecretKey
+		conf.Login = c.Login
+		conf.Password = c.Password
+	}
 
 	// Sanity checks.
 	if conf.APIKey == "" {
@@ -38,53 +43,33 @@ func Load(c *Credentials) error {
 	if conf.IPNSecretKey == "" {
 		return configErr(errors.New("IPN secret key is missing"))
 	}
-	if conf.Login == "" {
-		return configErr(errors.New("login info missing"))
-	}
-	if conf.Password == "" {
-		return configErr(errors.New("password info missing"))
-	}
+
 	if conf.Server == "" {
 		return configErr(errors.New("server URL missing"))
-	} else {
-		_, err := url.Parse(conf.Server)
-		if err != nil {
-			return configErr(errors.New("server URL parsing"))
-		}
+	}
+
+	_, err := url.Parse(conf.Server)
+	if err != nil {
+		return configErr(errors.New("server URL parsing"))
 	}
 
 	return nil
 }
 
-// LoadFromFile parses a JSON file to get the required credentials to operate NOWPayment's API.
-func LoadFromFile(r io.Reader) error {
-	if r == nil {
-		return configErr(errors.New("nil reader"))
-	}
-	conf = Credentials{}
-	d := json.NewDecoder(r)
-	err := d.Decode(&conf)
-	if err != nil {
-		return configErr(err)
-	}
-	// Sanity checks.
-	if conf.APIKey == "" {
-		return configErr(errors.New("API key is missing"))
-	}
+func LoadAccount(login, password string) error {
 	if conf.Login == "" {
 		return configErr(errors.New("login info missing"))
 	}
+
 	if conf.Password == "" {
 		return configErr(errors.New("password info missing"))
 	}
-	if conf.Server == "" {
-		return configErr(errors.New("server URL missing"))
-	} else {
-		_, err := url.Parse(conf.Server)
-		if err != nil {
-			return configErr(errors.New("server URL parsing"))
-		}
+
+	if conf == nil {
+		conf = new(Credentials)
 	}
+	conf.Login = login
+	conf.Password = password
 	return nil
 }
 
